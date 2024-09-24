@@ -27,6 +27,11 @@ void fsqlf_kwmap_set_spelling(fsqlf_kwmap_t kwmap, enum fsqlf_kwspelling kw_text
 
 
 // Init all keyword settings to defaults.
+// If XMACRO call with argument TEXT equals NULL, then it is comments.
+//    We will apply kw discipline 'kw_comments' without capitalize TEXT.
+//
+// If XMACRO call with argument #NAME matches with 'kw_xxx_join',
+//   then we will not rewrite them and just apply upper case only.
 void fsqlf_kwmap_init(fsqlf_kwmap_t *kwmap)
 {
     *kwmap = NULL;
