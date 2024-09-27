@@ -27,9 +27,11 @@ endif
 
 .PHONY: build clean
 
+FSQLF_CONF=$(BLD)/formatting.conf
 
 
-build: $(EXEC_CLI)
+
+build: $(EXEC_CLI) $(FSQLF_CONF)
 
 
 
@@ -86,6 +88,9 @@ else
 $(EXEC_CLI): $(COBJ) $(LCOBJ) $(BLD)/lex.yy.o
 	$(CC) -o $@ $(CFLAGS) $^ -o $@
 endif
+
+$(FSQLF_CONF): $(EXEC_CLI)
+	$(EXEC_CLI) --create-config-file $(FSQLF_CONF)
 
 #
 # OUT OF SOURCE BUILD FOLDERS
