@@ -22,8 +22,6 @@ else
 	EXEC_CLI=$(BLD)/fsqlf
 	CC=gcc
 	CFLAGS+=-m32
-	LIBNAME=$(BLD)/libfsqlf.so
-	LIBFLAGS=-shared
 endif
 
 
@@ -80,8 +78,14 @@ $(COBJ): $(BLD)/%.o: ./%.c include/lib_fsqlf.h | $(BLDDIRS)
 	$(CC) -o $@ -c $< $(CFLAGS)   
 
 INTUTIL = $(BLD)/utils/string/read_int.o
+
+ifeq ($(OS),WIN)
 $(EXEC_CLI): $(COBJ) $(INTUTIL) $(LIBNAME)
 	$(CC) -o $@ $(CFLAGS) $(COBJ) $(INTUTIL) -L$(BLD) -lfsqlf -Wl,-rpath,.
+else
+$(EXEC_CLI): $(COBJ) $(LCOBJ) $(BLD)/lex.yy.o
+	$(CC) -o $@ $(CFLAGS) $^ -o $@
+endif
 
 #
 # OUT OF SOURCE BUILD FOLDERS
