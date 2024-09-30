@@ -86,7 +86,7 @@ $(EXEC_CLI): $(COBJ) $(INTUTIL) $(LIBNAME)
 	$(CC) -o $@ $(CFLAGS) $(COBJ) $(INTUTIL) -L$(BLD) -lfsqlf -Wl,-rpath,.
 else
 $(EXEC_CLI): $(COBJ) $(LCOBJ) $(BLD)/lex.yy.o
-	$(CC) -o $@ $(CFLAGS) $^ -o $@
+	$(CC) -o $@ $(CFLAGS) $^
 endif
 
 $(FSQLF_CONF): $(EXEC_CLI)
