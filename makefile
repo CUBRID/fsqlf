@@ -6,7 +6,13 @@ CFLAGS+=-pedantic-errors
 CFLAGS+=-g
 CFLAGS+=-Iinclude
 
-ifeq ($(OS),WIN)
+OS := $(shell uname -s)
+
+ifdef ComSpec
+	OS := Windows
+endif
+
+ifeq ($(OS), Windows)
 	BLD=builds/windows
 	OS_TARGET=windows
 	EXEC_CLI=$(BLD)/fsqlf.exe
@@ -75,7 +81,7 @@ BLDDIRS += $(dir $(COBJ))
 $(COBJ): $(BLD)/%.o: ./%.c include/lib_fsqlf.h | $(BLDDIRS)
 	$(CC) -o $@ -c $< $(CFLAGS)   
 
-ifeq ($(OS),WIN)
+ifeq ($(OS), Windows)
 $(EXEC_CLI): $(COBJ) $(LCOBJ) $(BLD)/lex.yy.o
 	$(CC) -o $@ $(CFLAGS) $(COBJ) $(LCOBJ) $(BLD)/lex.yy.o $(LDFLAGS)
 else
