@@ -195,7 +195,7 @@ END (?i:end)
 %%
 
 {DELETEFROM}  { TUSE_W_STATES(fsqlf_kw_get(yyextra->kwall, "kw_deletefrom")); }
-{DELETE}      { TUSE_W_STATES(fsqlf_kw_get(yyextra->kwall, "kw_deletefrom")); }
+{DELETE}      { TUSE_W_STATES(fsqlf_kw_get(yyextra->kwall, "kw_delete")); }
 {UPDATE}      { TUSE_W_STATES(fsqlf_kw_get(yyextra->kwall, "kw_update")); }
 {SET} { TUSE_W_STATES(fsqlf_kw_get(yyextra->kwall, "kw_set")); }
 <stSET>{COMMA} { TUSE_SIMPLE(fsqlf_kw_get(yyextra->kwall, "kw_comma_set")); }
