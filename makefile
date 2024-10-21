@@ -17,7 +17,6 @@ ifeq ($(OS), Windows)
 	OS_TARGET=windows
 	EXEC_CLI=$(BLD)/fsqlf.exe
 	CFLAGS+=-DBUILDING_LIBFSQLF
-	CC=gcc
 	LDFLAGS=-static
 	FLEX=win_flex
 	PACKAGE_FILE=$(BLD)/$(PRJNAME)_windows.zip
@@ -27,18 +26,15 @@ else
 	OS_TARGET=linux
 	PREFIX=/usr/local
 	EXEC_CLI=$(BLD)/fsqlf
-	CC=gcc
 	FLEX=flex
 	PACKAGE_FILE=$(BLD)/$(PRJNAME)_linux.tar.gz
 	PACKAGE_CMD=tar -czvf $(PACKAGE_FILE) -C $(BLD) $(notdir $(EXEC_CLI)) $(notdir $(FSQLF_CONF))
 endif
 
-
-.PHONY: build clean package
-
+CC=gcc
 FSQLF_CONF=$(BLD)/formatting.conf
 
-
+.PHONY: build clean package
 
 build: $(EXEC_CLI) $(FSQLF_CONF)
 
